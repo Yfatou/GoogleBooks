@@ -13,7 +13,7 @@ export function BookList({ children }) {
 export function BookListItem({
   key,
   title,
-  author,
+  authors,
   description,
   image,
   link
@@ -23,19 +23,21 @@ export function BookListItem({
     <li className="list-group-item">
       <Container>
         <Row>
-          <Col size="xs-4 sm-2">
+          <Col size="xs-5 sm-3">
             <Thumbnail src={image} />
           </Col>
-          <Col size="xs-8 sm-9">
+          <Col size="xs-7 sm-9">
             <h3>{title}</h3>
-            <h4>{author}</h4>
+            <h4>{authors}</h4>
             <p> description: { description}</p>
-            <a rel="noreferrer noopener" target="_blank" href={link}>
-              Go to book!
-            </a>
+            <a class = "btn btn-dark" rel="noreferrer noopener" target="_blank" href={link}>View</a>
+            <button type="submit" className = "btn btn-lg btn-secondary saveBtn">Save</button>
           </Col>
         </Row>
       </Container>
     </li>
   );
 }
+
+
+

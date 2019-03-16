@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-// import { List, ListItem } from "../components/List";
 import Input from "../components/Input";
 // import Button from "../components/Button";
 import { BookListItem, BookList } from "../components/BookList";
@@ -48,8 +46,7 @@ class Search extends Component {
   handleFormSubmit = event => {
     console.log("in HFS");
     event.preventDefault();
-    // if (this.state.title && this.state.author) {
-      // API.searchBooks(this.state.bookInput)
+  
       console.log(this.state.bookInput);
       API.searchBooks(this.state.bookInput)
         .then(res => this.setState({ books: res.data.items})) // res.data is an object, we need to add items
@@ -60,6 +57,16 @@ class Search extends Component {
         .catch(err => console.log(err));
   };
 
+
+  handleSavedButton = event => {
+    event.preventDefault();
+    let savedBooks = this.state.books.filter(book => book.id === event.target.id)
+    savedBooks = savedBooks[0];
+    API.saveBook(savedBooks)
+      // .then(this.setState({ message: alert("Your book is saved") }))
+      .catch(err => console.log(err))
+  }
+
   render() {
     return (
       <div>
@@ -68,10 +75,6 @@ class Search extends Component {
           <Row>
             <Col size="md-12">
               <Input
-                // value={this.state.bookInput}
-                // onChange={this.handleInputChange}
-                // name="bookInput"
-                // placeholder="Title (required)"
                 handleFormSubmit = {this.handleFormSubmit}
                 handleInputChange = {this.handleInputChange}
               />
@@ -79,7 +82,6 @@ class Search extends Component {
           </Row>
         </Container>
         <Container>
-          {/* <CardResults books = {this.state.books} /> */}
           <BookList>
             {this.state.books.map(book => {
               return (
@@ -93,53 +95,14 @@ class Search extends Component {
                 />
               );
             })}
+             <button
+            type="submit" className = "btn btn-lg btn-secondary" onClick={this.handleSavedButton}>Save</button>
           </BookList>
         </Container>
       </div>
     )
   }
 }
-//                     <Col size="xs-3 sm-2">
-//                       <Button
-//                         onClick={this.handleFormSubmit}
-//                         type="success"
-//                         className="input-lg"
-//                       >
-//                         Search
-//                       </Button>
-//                     </Col>
-//                   </Row>
-//                 </Container>
-//               </form>
-//             </Col>
-//           </Row>
-//           <Row>
-//             <Col size="xs-12">
-//               {!this.state.books.length ? (
-//                 <h2 className="text-center">Choose a book to start!</h2>
-//               ) : (
-//                 <BookList>
-//                   {this.state.books.map(book => {
-//                     return (
-//                       <BookListItem
-//                         key={book.id}
-//                         title={book.volumeInfo.title}
-//                         link={book.volumeInfo.infoLink}
-//                         authors={book.volumeInfo.authors?book.volumeInfo.authors.join(", "):""}
-//                         description={book.volumeInfo.description}
-//                         image={book.volumeInfo.imageLinks.thumbnail}
-//                       />
-//                     );
-//                   })}
-//                 </BookList>
-//               )}
-//             </Col>
-//           </Row>
-//         </Container>
-//       </div>
-//     );
-//   }
-// }
           
 export default Search;
 
