@@ -10,6 +10,7 @@ export default {
   //   return axios.get("/google", { params: { q: "title:" + query} });
   // },
   searchBooks: function(query) {
+    console.log("In searchBooks: " + query)
     return axios.get("https://www.googleapis.com/books/v1/volumes?q=" + query)
 },
 

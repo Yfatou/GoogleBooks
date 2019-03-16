@@ -5,17 +5,15 @@ import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 // import { List, ListItem } from "../components/List";
 import Input from "../components/Input";
-import Button from "../components/Button";
+// import Button from "../components/Button";
 import { BookListItem, BookList } from "../components/BookList";
+// import CardResults from "../components/CardResults";
 // import { Input, TextArea, FormBtn } from "../components/Form";
 
 
 class Search extends Component {
   state = {
     books: [],
-    // title: "",
-    // authors: "", 
-    // description: ""
     bookInput: ""
   };
 
@@ -39,20 +37,27 @@ class Search extends Component {
   // };
 
   handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    // const { name, value } = event.target;
+    // this.setState({
+    //   [name]: value
+    // });
+    console.log("book input: " + event.target.value);
+    this.setState({ bookInput: event.target.value })
   };
-
+  
   handleFormSubmit = event => {
+    console.log("in HFS");
     event.preventDefault();
     // if (this.state.title && this.state.author) {
       // API.searchBooks(this.state.bookInput)
+      console.log(this.state.bookInput);
       API.searchBooks(this.state.bookInput)
-        .then(res => this.setState({ books: res.data}))
-        .catch(err => console.log(err));
+        .then(res => this.setState({ books: res.data.items})) // res.data is an object, we need to add items
+        // .catch(err => console.log(err));
     // }
+      
+      
+        .catch(err => console.log(err));
   };
 
   render() {
@@ -62,58 +67,79 @@ class Search extends Component {
         <Container>
           <Row>
             <Col size="md-12">
-              <form>
-                <Container>
-                  <Row>
-                    <Col size="xs-9 sm-10">
-                      <Input
-                        value={this.state.bookInput}
-                        onChange={this.handleInputChange}
-                        name="bookInput"
-                        placeholder="Title (required)"
-                      />
-                    </Col>
-                    <Col size="xs-3 sm-2">
-                      <Button
-                        onClick={this.handleFormSubmit}
-                        type="success"
-                        className="input-lg"
-                      >
-                        Search
-                      </Button>
-                    </Col>
-                  </Row>
-                </Container>
-              </form>
-            </Col>
-          </Row>
-          <Row>
-            <Col size="xs-12">
-              {!this.state.books.length ? (
-                <h2 className="text-center">Choose a book to start!</h2>
-              ) : (
-                <BookList>
-                  {this.state.books.map(book => {
-                    return (
-                      <BookListItem
-                        key={book.id}
-                        title={book.volumeInfo.title}
-                        link={book.volumeInfo.infoLink}
-                        authors={book.volumeInfo.authors?book.volumeInfo.authors.join(", "):""}
-                        description={book.volumeInfo.description}
-                        image={book.volumeInfo.imageLinks.thumbnail}
-                      />
-                    );
-                  })}
-                </BookList>
-              )}
+              <Input
+                // value={this.state.bookInput}
+                // onChange={this.handleInputChange}
+                // name="bookInput"
+                // placeholder="Title (required)"
+                handleFormSubmit = {this.handleFormSubmit}
+                handleInputChange = {this.handleInputChange}
+              />
             </Col>
           </Row>
         </Container>
+        <Container>
+          {/* <CardResults books = {this.state.books} /> */}
+          <BookList>
+            {this.state.books.map(book => {
+              return (
+                <BookListItem
+                  key={book.id}
+                  title={book.volumeInfo.title}
+                  link={book.volumeInfo.infoLink}
+                  authors={book.volumeInfo.authors}
+                  description={book.volumeInfo.description}
+                  image={book.volumeInfo.imageLinks.thumbnail}
+                />
+              );
+            })}
+          </BookList>
+        </Container>
       </div>
-    );
+    )
   }
 }
+//                     <Col size="xs-3 sm-2">
+//                       <Button
+//                         onClick={this.handleFormSubmit}
+//                         type="success"
+//                         className="input-lg"
+//                       >
+//                         Search
+//                       </Button>
+//                     </Col>
+//                   </Row>
+//                 </Container>
+//               </form>
+//             </Col>
+//           </Row>
+//           <Row>
+//             <Col size="xs-12">
+//               {!this.state.books.length ? (
+//                 <h2 className="text-center">Choose a book to start!</h2>
+//               ) : (
+//                 <BookList>
+//                   {this.state.books.map(book => {
+//                     return (
+//                       <BookListItem
+//                         key={book.id}
+//                         title={book.volumeInfo.title}
+//                         link={book.volumeInfo.infoLink}
+//                         authors={book.volumeInfo.authors?book.volumeInfo.authors.join(", "):""}
+//                         description={book.volumeInfo.description}
+//                         image={book.volumeInfo.imageLinks.thumbnail}
+//                       />
+//                     );
+//                   })}
+//                 </BookList>
+//               )}
+//             </Col>
+//           </Row>
+//         </Container>
+//       </div>
+//     );
+//   }
+// }
           
 export default Search;
 
