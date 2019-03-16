@@ -1,14 +1,12 @@
 import React from "react";
+import "./style.css";
 
-function Jumbotron({ children }) {
-  return (
-    <div
-      style={{ height: 300, clear: "both", paddingTop: 120, textAlign: "center" }}
-      className="jumbotron"
-    >
-      {children}
-    </div>
-  );
-}
+const Jumbotron = () => (
+	<header className = "header mt-4">
+		<h1>(React) Google Books Search</h1>
+		<h2>Search for and Save Books of Interest.</h2>
+	</header>
+);
+
 
 export default Jumbotron;
