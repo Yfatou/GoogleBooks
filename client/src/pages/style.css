@@ -1,4 +1,4 @@
-#savedBooks {
-    background-image: url("./library.jpg");
+#savedBooks, #searchBooks {
+    background-image: url("./light-veneer.png");
     background-size: cover;
 }

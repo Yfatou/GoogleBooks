@@ -4,12 +4,11 @@ import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import Input from "../components/Input";
 import { BookListItem, BookList } from "../components/BookList";
-// import CardResults from "../components/CardResults";
-// import { Input, TextArea, FormBtn } from "../components/Form";
+import "./style.css";
 
 
 class Search extends Component {
-  state = {
+  state = {// The state will be the array of books and the user input
     books: [],
     bookInput: ""
   };
@@ -20,24 +19,22 @@ class Search extends Component {
     this.setState({
       [name]: value
     });
-    console.log("book input: " + event.target.value);
     this.setState({ bookInput: event.target.value })
   };
   
+  // When the user click on the serach button
   handleFormSubmit = event => {
-    console.log("in HFS");
     event.preventDefault();
-  
-      console.log(this.state.bookInput);
-      API.searchBooks(this.state.bookInput)
+      API.searchBooks(this.state.bookInput) // the searchBooks route is called with the title entedred by the user
         .then(res => this.setState({ books: res.data.items})) // res.data is an object, we need to add items
         .catch(err => console.log(err));
   };
 
+  // When the user click on the save button
   handleSavedButton = id => {
     const book = this.state.books.find(book => book.id === id);
 
-    API.saveBook({
+    API.saveBook({ // the saveBook route is called with the id of the book, the data will be inserted in the books collection
       key: book.id,
       title: book.volumeInfo.title,
       link: book.volumeInfo.infoLink,
@@ -49,7 +46,7 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
+      <div id="searchBooks">
         <Jumbotron />
         <Container>
           <Row>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { BookListItem, BookList } from "../components/BookList";
-import { Col, Row, Container } from "../components/Grid";
+import { Container } from "../components/Grid";
 import "./style.css";
 
 class Saved extends Component {
@@ -10,15 +10,16 @@ class Saved extends Component {
     books: []
   };
 
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
+  // When this component mounts, the getSavedBooks route is called
+  // it will load all the books saved in the database
   componentDidMount() {
-    console.log("in componentDidMount")
     API.getSavedBooks()
       .then(res => this.setState({ books: res.data }))
       .catch(err => console.log(err));
   };
 
+  // when the user click on the delete button, teh deleteBook route is called with the id of the choosen book
+  // that bool will be deleted from the database
   handleDeleteBook = id => {
     API.deleteBook(id)
         .then(res => this.componentDidMount())
@@ -45,7 +46,6 @@ class Saved extends Component {
                   Button={() => (
                     <button onClick={() => this.handleDeleteBook(book._id)} >Delete</button>
                   )}
-
                 />
               );
             })}
