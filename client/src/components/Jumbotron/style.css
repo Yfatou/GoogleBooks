@@ -1,5 +1,6 @@
 .header{
-    background: grey;
+	background-image: url("./book2.jpg");
+    background-size: cover;
 	position: relative;
 	width: 100%;
 }

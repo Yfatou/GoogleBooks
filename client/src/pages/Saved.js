@@ -3,6 +3,7 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { BookListItem, BookList } from "../components/BookList";
 import { Col, Row, Container } from "../components/Grid";
+import "./style.css";
 
 class Saved extends Component {
   state = {
@@ -29,7 +30,7 @@ class Saved extends Component {
       <div>
         <Jumbotron />
         <div id="savedBooks">
-          <h2>Saved Books</h2>
+          <h1>Saved Books</h1>
           <Container>
           <BookList>
             {this.state.books.map(book => {
@@ -42,11 +43,7 @@ class Saved extends Component {
                   description={book.description}
                   image={book.image}
                   Button={() => (
-                    <button
-                      onClick={() => this.handleDeleteBook(book._id)}
-                    >
-                      Delete
-                    </button>
+                    <button onClick={() => this.handleDeleteBook(book._id)} >Delete</button>
                   )}
 
                 />

@@ -74,11 +74,7 @@ class Search extends Component {
                   description={book.volumeInfo.description}
                   image={book.volumeInfo.imageLinks.thumbnail}
                   Button={() => (
-                    <button
-                      onClick={() => this.handleSavedButton(book.id)}
-                    >
-                      Save
-                    </button>
+                    <button onClick={() => this.handleSavedButton(book.id)}>Save</button>
                   )}
                 />
               );

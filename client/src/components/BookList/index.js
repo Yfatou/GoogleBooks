@@ -30,7 +30,7 @@ export function BookListItem({
           <Col size="xs-7 sm-9">
             <h3>{title}</h3>
             <h4>{authors}</h4>
-            <p> description: { description}</p>
+            <p> Description: { description}</p>
             <a className = "btn btn-dark" rel="noreferrer noopener" target="_blank" href={link}>View</a>
             <Button className = "btn btn-dark" />
           </Col>
