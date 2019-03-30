@@ -28,7 +28,7 @@ const CardResults = props => (
                                 </Col>
                             </Row>
                             <br></br>
-                            {/* <Row className="buttonDiv ">
+                            <Row className="buttonDiv ">
                                 <button className="saveBook btn btn-primary" id={book.id} onClick={(event) => props.handleSavedButton(event)}>
                                     Save Book
                                 </button>
@@ -37,7 +37,7 @@ const CardResults = props => (
                                         View Book
                                     </button>
                                 </a>
-                            </Row> */}
+                            </Row>
                         </li>
                     );
                 })}

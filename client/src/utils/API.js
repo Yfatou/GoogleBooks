@@ -5,6 +5,7 @@ export default {
   getBooks: function() {
     return axios.get("/api/books");
   },
+
   // Search book
   // searchBooks: function(query) {
   //   return axios.get("/google", { params: { q: "title:" + query} });
