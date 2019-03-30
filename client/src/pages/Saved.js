@@ -1,49 +1,61 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
+import { BookListItem, BookList } from "../components/BookList";
+import { Col, Row, Container } from "../components/Grid";
 
 class Saved extends Component {
   state = {
-    book: {}
+    books: []
   };
+
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
-    API.getBook(this.props.match.params.id)
-      .then(res => this.setState({ book: res.data }))
+    console.log("in componentDidMount")
+    API.getSavedBooks()
+      .then(res => this.setState({ books: res.data }))
       .catch(err => console.log(err));
-  }
+  };
+
+  handleDeleteBook = id => {
+    API.deleteBook(id)
+        .then(res => this.componentDidMount())
+        .catch(err => console.log(err))
+}
 
   render() {
     return (
-      <Container fluid>
-        <Row>
-          <Col size="md-12">
-            <Jumbotron>
-              <h1>
-                {this.state.book.title} by {this.state.book.author}
-              </h1>
-            </Jumbotron>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-10 md-offset-1">
-            <article>
-              <h1>Synopsis</h1>
-              <p>
-                {this.state.book.synopsis}
-              </p>
-            </article>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-2">
-            <Link to="/">← Back to Authors</Link>
-          </Col>
-        </Row>
-      </Container>
+      <div>
+        <Jumbotron />
+        <div id="savedBooks">
+          <h2>Saved Books</h2>
+          <Container>
+          <BookList>
+            {this.state.books.map(book => {
+              return (
+                <BookListItem
+                  key={book._id}
+                  title={book.title}
+                  link={book.link}
+                  authors={book.authors}
+                  description={book.description}
+                  image={book.image}
+                  Button={() => (
+                    <button
+                      onClick={() => this.handleDeleteBook(book._id)}
+                    >
+                      Delete
+                    </button>
+                  )}
+
+                />
+              );
+            })}
+          </BookList>
+          </Container>
+        </div>
+      </div>
     );
   }
 }
